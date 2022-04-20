@@ -29,14 +29,16 @@ def scrap_kilid():
         content = response.json().get("content", False)
         # print(content)
         for home in content:
-            if home.get("id", False):
-                if home.get("id", False) not in saved_data:
-                    saved_data.append(home.get("id", False))
-                    rs.append({
-                        "floorArea": str(home.get("floorArea", False)),
-                        "sector": str(home.get("location", False).get("sector", False).get("name", False)),
-                        "url": "https://kilid.com/buy/detail/" + str(home.get("id", False)),
-                        })
+            if (
+                home.get("id", False)
+                and home.get("id", False) not in saved_data
+            ):
+                saved_data.append(home.get("id", False))
+                rs.append({
+                    "floorArea": str(home.get("floorArea", False)),
+                    "sector": str(home.get("location", False).get("sector", False).get("name", False)),
+                    "url": "https://kilid.com/buy/detail/" + str(home.get("id", False)),
+                    })
     return rs
 
 
